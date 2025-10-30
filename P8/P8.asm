@@ -8,7 +8,7 @@ section	.text
 
 _start:   
 
-    ; (A)
+; (A)
     mov edx, msg_ingresar
     call puts
     call getche
@@ -94,23 +94,21 @@ salto_linea:
     dec cx
     jmp ciclo_fila
 
+; (D)
 seguirD:
     mov al, 10
     call putchar
     
-    
-    
-    
     ; (FIN)
-    mov al, 10
-    call putchar
-
 	mov eax, 1
 	int 0x80
 
 section .data
     msg_ingresar db "Ingrese un caracter: ", 0
+    msg_ingresar_num db "Ingrese un numero: ", 0
     msg_menorM db "El caracter es menor que 'm'", 10, 0
     msg_es_numero db "El caracter es numero", 0
     msg_es_letra db "El caracter es letra", 10, 0
+    msg_resultado db "Datos Capturados", 10, 0
+    arregloCaracter db 0
 
