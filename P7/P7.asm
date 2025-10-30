@@ -132,9 +132,25 @@ _start:
 
     ; (J)
     pop esi
+    mov eax, esi
+    call pHex_dw
 
-    ; (K)
+    mov al, 10
+    call putchar 
+    mov al, 10
+    call putchar    
     
+    ; (K)
+    mov ebx, esi
+    shl esi, 3
+    add esi, ebx 
+    add esi, ebx
+    mov eax, esi
+    call pHex_dw
+    
+    mov al, 10
+    call putchar 
+
     ;fin de programa
 	mov eax, 1
 	int 0x80
