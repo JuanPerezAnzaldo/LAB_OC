@@ -7,14 +7,32 @@ N equ 5
 
 section .data
     msg_ingresar db "Ingrese un elemento: ", 0
+    msg_arr1 db "ARREGLO 1", 0
+    msg_arr2 db "ARREGLO 2", 0
     arreglo1 db 0
-    cualVector db 0
+    arreglo2 db 0
 
 section	.text
 	global _start
 
-_start:   
+_start:
+    mov edx, msg_arr1
+    call puts
+
+    mov al, 10
+    call putchar
+
     call capturar
+
+    mov edx, msg_arr2
+    call puts
+    call capturar
+
+    mov al, 10
+    call putchar
+
+    call capturar
+
     call desplegar
     
     ;(FIN)
@@ -24,6 +42,7 @@ _start:
 ;(A)
 capturar:
     mov ebx, arreglo1
+    mov edx, arreglo2
     mov ecx, N
 
     ciclo_captura:
