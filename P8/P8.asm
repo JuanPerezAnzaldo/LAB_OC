@@ -97,9 +97,40 @@ salto_linea:
 ; (D)
 seguirD:
     mov al, 10
-    call putchar
+    call putchar 
     
-    ; (FIN)
+    mov ecx, 10
+    mov ebx, 0
+
+capturar:
+    call getche
+    mov byte [arregloCaracter + ebx], al
+    inc ebx
+    loop capturar
+
+    mov ecx, 10
+    mov ebx, 0
+
+    mov al, 10
+    call putchar
+
+    mov edx, msg_resultado
+    call puts
+        
+    mov al, 10
+    call putchar
+
+desplegar:
+    mov al, [arregloCaracter + ebx]
+    inc ebx
+    call putchar
+
+    mov al, 10
+    call putchar
+
+    loop desplegar
+    
+; (FIN)
 	mov eax, 1
 	int 0x80
 
@@ -111,4 +142,3 @@ section .data
     msg_es_letra db "El caracter es letra", 10, 0
     msg_resultado db "Datos Capturados", 10, 0
     arregloCaracter db 0
-
