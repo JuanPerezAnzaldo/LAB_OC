@@ -2,98 +2,126 @@
 ; Matricula: 2217982
 
 %include "../LIB/pc_iox.inc"
-
-N equ 5
+N equ 10
 
 section .data
-    msg_ingresar db "Ingrese un elemento: ", 0
-    msg_arr1 db "ARREGLO 1", 0
-    msg_arr2 db "ARREGLO 2", 0
-    arreglo1 db 0
-    arreglo2 db 0
+    msg_Capturar     db "Ingrese un valor del 0 al 9: ", 10, 0
+    msg_Desplegar    db "La suma de los 2 vectores es: ", 10, 0
+    msg_Prod_Escalar db "El producto escalar de los 2 vectores es: ", 0
 
-section	.text
-	global _start
+    arreglo1 db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    arreglo2 db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+section .text
+    global _start
 
 _start:
-    mov edx, msg_arr1
+
+; (Vector1)
+    mov edx, msg_Capturar
     call puts
 
-    mov al, 10
-    call putchar
-
+    mov ecx, N
+    mov ebx, arreglo1
     call capturar
 
-    mov edx, msg_arr2
+    call salto_linea
+
+; (Vector2)
+    mov edx, msg_Capturar
     call puts
+
+    mov ecx, N
+    mov ebx, arreglo2
     call capturar
 
-    mov al, 10
-    call putchar
+    call salto_linea
 
-    call capturar
+; (Producto Escalar)
+    mov edx, msg_Prod_Escalar
+    call puts
 
-    call desplegar
-    
-    ;(FIN)
-    mov eax, 1
-    int 0x80
+    mov esi, arreglo1
+    mov edi, arreglo2
+    mov ecx, N
+    call producto_escalar
 
-;(A)
-capturar:
+    call salto_linea
+
+; (Suma de Vectores)
     mov ebx, arreglo1
     mov edx, arreglo2
     mov ecx, N
+    call sumar
 
-    ciclo_captura:
+; (Mostrar Suma)
+    mov edx, msg_Desplegar
+    call puts
 
-        captura:
-            mov al, 10
-            call putchar
+    mov ebx, arreglo1
+    mov ecx, N
+    call desplegar
 
-            mov edx, msg_ingresar
-            call puts
-        
-            call getch
-            
-            push eax
-            sub al, 30h
-            
-            verificacion:
-                cmp al, '0'
-                jb es_numero
-                cmp al, '9'
-                ja captura
-                jmp validado
-            
-            es_numero:
-                pop eax
-                jmp verificacion
+; (Fin del programa)
+    mov eax, 1
+    int 0x80
 
-            validado:
-                call putchar
-                mov byte [ebx], al
-
-            inc ebx
-    loop ciclo_captura
-
+salto_linea:
+    push eax
     mov al, 10
     call putchar
+    pop eax
+ret
+
+;(A)
+capturar:
+    ciclo_captura:
+        call getch
+
+        cmp al, '0'
+        jb ciclo_captura
+        cmp al, '9'
+        ja ciclo_captura
+
+        call putchar
+
+        sub al, '0'
+        mov [ebx], al
+        inc ebx
+    loop ciclo_captura
 ret
 
 ;(B)
 desplegar:
-    mov ebx, arreglo1
-    mov ecx, N
-
-    mostrar:
-        mov byte al, [ebx]
-        call putchar
-
+    ciclo_desplegar:
+        mov al, [ebx]
+        call pHex_b
         inc ebx
-    loop mostrar
-    
-    mov al, 10
-    call putchar
+        call salto_linea
+    loop ciclo_desplegar
 ret
 
+;(C)
+sumar:
+    ciclo_suma:
+        mov al, [edx]
+        add [ebx], al
+        inc ebx
+        inc edx
+    loop ciclo_suma
+ret
+
+;(D)
+producto_escalar:
+    mov ebx, 0
+    producto:
+        mov al, [esi]
+        mul byte [edi]
+        add bx, ax
+        inc esi
+        inc edi
+    loop producto
+
+    mov ax, bx
+    call pHex_w
+ret
