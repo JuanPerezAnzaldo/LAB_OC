@@ -19,19 +19,19 @@ ret
 Strlen:
     push ebp
     mov ebp, esp
+    
+    mov ecx, [ebp + 8] 
+    mov eax, 0
+    
+    inicioCadena:
+        mov dl, [ecx + eax]
+        cmp dl, 0
+        je finCadena
+        inc eax
+    jmp inicioCadena
 
-    mov ebx,0
-
-    repite
-        mov eax, [ebp + 4] 
-        inc ebx
-
-        cmp eax,0
-    jpe repite
-
-    mov eax,ebx
-
-    pop ebp
+    finCadena:
+        pop ebp
 ret
 
 GetBit:

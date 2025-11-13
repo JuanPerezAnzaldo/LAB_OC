@@ -7,9 +7,9 @@ extern int GetBit( int value, int numbit);
 int main()
 {
     int a = 5, b = 10;
-    char cadena[5] = "Hola";
+    char cadena[6] = "Holaa";
     printf("La suma de %d + %d es: %d\n", a, b, Suma(a,b));
-    printf("La cadena tiene longitud de: %d\n", Strlen(cadena)));
+    printf("La cadena tiene longitud de: %d\n", Strlen(cadena));
 
     return 0;
 }
