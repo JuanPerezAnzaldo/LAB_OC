@@ -23,9 +23,9 @@ pBin8b:
 
         jmp siguiente_b8
 
-    cero_b8:
-        mov al, '0'
-        call mi_putchar
+        cero_b8:
+            mov al, '0'
+            call mi_putchar
     
     siguiente_b8:
         loop ciclo_8b
@@ -51,9 +51,9 @@ pBin16b:
 
         jmp siguiente_b16
 
-    cero_b16:
-        mov al, '0'
-        call mi_putchar
+        cero_b16:
+            mov al, '0'
+            call mi_putchar
     
     siguiente_b16:
         loop ciclo_16b
@@ -80,10 +80,10 @@ pBin32b:
 
         jmp siguiente_b32
 
-    cero_b32:
-        mov al, '0'
-        call mi_putchar
-    
+        cero_b32:
+            mov al, '0'
+            call mi_putchar
+
     siguiente_b32:
         loop ciclo_32b
 
@@ -115,9 +115,9 @@ pBin64b:
             mov al, '0'
             call putchar
 
-        siguiente_64b:
-            loop ciclo_64b_alta
-            mov ecx, 32
+    siguiente_64b:
+        loop ciclo_64b_alta
+        mov ecx, 32
     
 
     ciclo_64b_baja:
@@ -127,13 +127,13 @@ pBin64b:
         mov al, '1'
         call putchar
 
-        jmp continuar_64b_2
+        jmp siguiente_64b_2
         
         cero_64b_2:
             mov al, '0'
             call putchar
         
-    continuar_64b_2:
+    siguiente_64b_2:
         loop ciclo_64b_baja
             
         pop edx
