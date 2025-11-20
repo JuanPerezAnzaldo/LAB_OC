@@ -1,4 +1,3 @@
-%include "../LIB/pc_iox.inc"
 
 global Suma
 global Strlen
@@ -18,6 +17,7 @@ ret
 
 Strlen:
     push ebp
+
     mov ebp, esp
     
     mov ecx, [ebp + 8] 
@@ -35,4 +35,15 @@ Strlen:
 ret
 
 GetBit:
+    push ebp
+
+    mov ebp, esp
+    
+    mov eax, [ebp + 8]
+    mov ecx, [ebp + 12]
+
+    shr eax, cl
+    and eax, 1
+
+    pop ebp
 ret
